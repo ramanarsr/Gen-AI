@@ -1,0 +1,9 @@
+streamlit
+faiss-cpu
+numpy
+sentence-transformers
+PyPDF2
+groq
+openai
+regex
+bert-score

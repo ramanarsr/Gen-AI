@@ -1,4 +1,3 @@
-
 import streamlit as st
 import os
 import faiss
@@ -6,15 +5,12 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from PyPDF2 import PdfReader
 from groq import Groq
-import openai
 import re
 from bert_score import score as bert_score
 
 # Set API Keys
 os.environ["GROQ_API_KEY"] = "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"
-os.environ["OPENAI_API_KEY"] = "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"
-openai.api_key = os.environ["OPENAI_API_KEY"]
-DOCUMENT_PATH = "/content/drive/MyDrive/documents"
+DOCUMENT_PATH = "docs"
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
 st.set_page_config(page_title="High School Science RAG", layout="wide")
@@ -26,16 +22,21 @@ query_input = st.text_area("Ask your science question:", height=100)
 @st.cache_data
 def load_documents(folder_path=DOCUMENT_PATH):
     docs, titles = [], []
-    for file in os.listdir(folder_path):
-        if file.endswith(".pdf"):
-            reader = PdfReader(os.path.join(folder_path, file))
-            for page in reader.pages:
-                text = page.extract_text()
-                if not text:
-                    continue
-                paragraphs = [re.sub(r"\s+", " ", p.strip()) for p in text.split("\n\n") if len(p.strip()) > 100]
-                docs.extend(paragraphs)
-                titles.extend([file] * len(paragraphs))
+    pdf_files = [file for file in os.listdir(folder_path) if file.endswith(".pdf")]
+    for file in pdf_files:
+        reader = PdfReader(os.path.join(folder_path, file))
+        for page in reader.pages:
+            text = page.extract_text()
+            if not text:
+                continue
+            paragraphs = [
+                re.sub(r"\s+", " ", p.strip())
+                for p in text.split("\n\n")
+                if len(p.strip()) > 100
+            ]
+            docs.extend(paragraphs)
+            titles.extend([file] * len(paragraphs))
+
     return docs, titles
 
 docs, titles = load_documents()
