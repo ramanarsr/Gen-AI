@@ -9,7 +9,7 @@ import re
 from bert_score import score as bert_score
 
 DOCUMENT_PATH = "RAG_Project/docs"
-groq_client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 st.set_page_config(page_title="High School Science RAG", layout="wide")
 st.markdown("<h1 style='text-align: center;'>High School Science RAG App</h1>", unsafe_allow_html=True)
