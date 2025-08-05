@@ -8,10 +8,8 @@ from groq import Groq
 import re
 from bert_score import score as bert_score
 
-# Set API Keys
-os.environ["GROQ_API_KEY"] = "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"
 DOCUMENT_PATH = "RAG_Project/docs"
-client = Groq(api_key=os.environ["GROQ_API_KEY"])
+groq_client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 st.set_page_config(page_title="High School Science RAG", layout="wide")
 st.markdown("<h1 style='text-align: center;'>High School Science RAG App</h1>", unsafe_allow_html=True)
