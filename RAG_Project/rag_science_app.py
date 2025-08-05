@@ -17,7 +17,7 @@ st.set_page_config(page_title="High School Science RAG", layout="wide")
 st.markdown("<h1 style='text-align: center;'>High School Science RAG App</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
-query_input = st.text_area("Ask your science question:", height=100)
+query_input = st.text_input("Ask your science question:")
 
 @st.cache_data
 def load_documents(folder_path=DOCUMENT_PATH):
