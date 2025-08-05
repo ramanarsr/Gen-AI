@@ -144,9 +144,9 @@ def compute_metrics(preds, labels, queries):
         "BERTScore F1": round(float(F1.mean()), 3),
     }
 
-def evaluate_with_groq_judge(query, gen_ans, ref_ans, judge_model="llama3-8b-8192"):
+def evaluate_with_groq_judge(query, gen_ans, ref_ans, judge_model="gemma2-9b-it"):
     from groq import Groq
-    client_judge = Groq(api_key=os.environ["GROQ_API_KEY"])
+    client_judge = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
     eval_prompt = f'''
 You are a strict high school science teacher. Evaluate the student\'s answer to a science question.
