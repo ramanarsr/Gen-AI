@@ -6,14 +6,11 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from PyPDF2 import PdfReader
 from groq import Groq
-import openai
 import re
 from bert_score import score as bert_score
 
 # Set API Keys
 os.environ["GROQ_API_KEY"] = "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"
-os.environ["OPENAI_API_KEY"] = "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"
-openai.api_key = os.environ["OPENAI_API_KEY"]
 DOCUMENT_PATH = "/content/drive/MyDrive/documents"
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
