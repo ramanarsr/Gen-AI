@@ -80,7 +80,7 @@ def retrieve_chunks(query, k=3):
     _, indices = index.search(np.array(q_embed), k)
     return [docs[i] for i in indices[0]]
 
-def generate_answer(query, k=3, model="llama3-70b-8192"):
+def generate_answer(query, k=3, model="llama-3.1-8b-instant"):
     retrieved = retrieve_chunks(query, k)
     prompt = build_prompt(query, retrieved)
     response = client.chat.completions.create(
@@ -144,7 +144,7 @@ def compute_metrics(preds, labels, queries):
         "BERTScore F1": round(float(F1.mean()), 3),
     }
 
-def evaluate_with_groq_judge(query, gen_ans, ref_ans, judge_model="gemma2-9b-it"):
+def evaluate_with_groq_judge(query, gen_ans, ref_ans, judge_model="llama-3.3-70b-versatile"):
     from groq import Groq
     client_judge = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
