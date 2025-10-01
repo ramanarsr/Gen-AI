@@ -8,7 +8,7 @@ from groq import Groq
 import re
 from bert_score import score as bert_score
 
-DOCUMENT_PATH = "RAG_Project/docs"
+DOCUMENT_PATH = "RAG_Project/Documents"
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 st.set_page_config(page_title="High School Science RAG", layout="wide")
@@ -91,26 +91,26 @@ def generate_answer(query, k=3, model="llama-3.1-8b-instant"):
     return response.choices[0].message.content.strip()
 
 evaluation_dataset = [
-    { "query": "What is the difference between prokaryotic and eukaryotic cells?",
-      "ground_truth": "Prokaryotic cells lack a true nucleus and other membrane-bound organelles, whereas eukaryotic cells possess a defined nucleus" },
-    { "query": "Where in the plant cell does photosynthesis occur, and what is the role of chlorophyll?",
-      "ground_truth": "Photosynthesis occurs in the chloroplasts, where chlorophyll absorbs light energy to power the process." },
-    { "query": "State Newton's three laws of motion.",
-      "ground_truth": "1st: An object remains at rest or in uniform motion unless acted on. 2nd: F = ma. 3rd: For every action, there is an equal and opposite reaction." },
-    { "query": "How are elements arranged in the periodic table?",
-      "ground_truth": "Elements in the periodic table are arranged by increasing atomic number." },
-    { "query": "Describe the different states of matter.",
-      "ground_truth": "Matter exists in four primary states: solid, liquid, gas, and plasma. Solids have a fixed shape and volume due to tightly packed particles. Liquids have a definite volume but take the shape of their container. Gases have neither a fixed shape nor volume, expanding to fill any space. Plasma, found in stars, is an ionized state of matter." },
-    { "query": "Explain Ohm's Law.",
-      "ground_truth": "Ohm's Law (V = IR) describes the relationship between voltage, current, and resistance." },
-    { "query": "What is the main function of the small intestine?",
-      "ground_truth": "The small intestine uses villi to absorb nutrients." },
-    { "query": "What is the role of decomposers in an ecosystem?",
-      "ground_truth": "The role of Decomposers is to break down dead matter, like fungi." },
+    { "query": "What is hypermetropia and how does it differ from myopia?",
+      "ground_truth": "Hypermetropia, or farsightedness, is an eye defect where a person cannot see nearby objects clearly, though their distant vision is clear. Myopia, or nearsightedness, is the opposite defect, where a person cannot see distant objects clearly." },
+    { "query": "What is the heating effect of electric current, also known as Joule's Law of Heating?",
+      "ground_truth": "It is the phenomenon where the dissipation of energy in a purely resistive circuit occurs entirely in the form of heat. The heat produced (H) is given by the formula H = I²Rt." },
+    { "query": "What is the difference between reactants and products in a chemical reaction?",
+      "ground_truth": "Reactants are the substances that exist before a chemical reaction begins and are written on the left side of a chemical equation. Products are the new substances that are formed as a result of the reaction and are written on the right side of the equation." },
+    { "query": "Write the overall balanced chemical equation for photosynthesis.",
+      "ground_truth": "6CO2 + 6H2 O + Light → C6 H12 O6 + 6O2" },
+    { "query": "Distinguish between a concave mirror and a convex mirror based on their reflecting surfaces.",
+      "ground_truth": "A concave mirror is a spherical mirror whose reflecting surface is curved inwards, towards the center of the sphere. A convex mirror is a spherical mirror whose reflecting surface is curved outwards, away from the center of the sphere." },
+    { "query": "What is a solenoid, and what is the nature of the magnetic field inside it?",
+      "ground_truth": "A solenoid is a coil comprising several circular turns of insulated copper wire wrapped tightly in the shape of a cylinder. The magnetic field inside the solenoid is uniform." },
+    { "query": "What was the basis for Dobereiner's classification of elements into triads?",
+      "ground_truth": "Dobereiner used the physical and chemical characteristics of each element to divide them into triads. In a trio, the elements were organized in ascending order of their atomic masses, and he grouped elements with related qualities." },
+    { "query": "What is the typical phenotypic ratio of a dihybrid cross in the F2 generation, according to Mendel?",
+      "ground_truth": "The typical phenotypic ratio of a dihybrid cross in the F2 generation, according to Mendel, is 9:3:3:1." },
     { "query": "How does litmus paper indicate pH?",
       "ground_truth": "The color of Litmus paper changes color on pH." },
-    { "query": "Which planets are classified as gas giants?",
-      "ground_truth": "Jupiter and Saturn are classified as gas giants." }
+    { "query": "List two physical properties that are characteristic of metals.",
+      "ground_truth": "Two physical properties that are characteristic of metals are:1. Luster: Metals have a shiny appearance.2. Conductivity: They conduct heat and electricity." }
 ]
 
 def normalize(text):
